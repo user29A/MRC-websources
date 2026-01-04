@@ -1,0 +1,37 @@
+// src/data/articles/article-27.ts
+import type { Article } from "./types";
+
+export const article27: Article = {
+  number: 27,
+  title: "National Solidarity and Temporary Assistance",
+  content: `
+1.     The Republic recognises a duty of solidarity toward citizens who are temporarily unable to secure gainful employment or the basic necessities of life. The purpose of all such assistance is the rapid restoration of self-reliance.
+
+2.     Every unemployed citizen who is physically and mentally able and willing to work shall be entitled to:
+      a)     immediate placement through a national labour-exchange service into suitable paid employment or apprenticeship, or, if no private-sector position is immediately available, into public-works or infrastructure projects funded under Article 22;
+      b)     temporary, modest cash benefits sufficient to secure basic housing, food, and necessities from local private sources, paid directly to the citizen;
+      c)     continued eligibility for state-assisted medical care under Article 21, section 3 during the period of unemployment.
+
+3.     Assistance under section 2 shall continue only so long as the citizen actively participates in job placement, training, or public-works programmes. Refusal of three reasonable offers of employment or training without just cause shall terminate all benefits.
+
+4.     Citizens who are permanently unable to work owing to verified disability, advanced age, or the full-time care of young children or infirm relatives shall receive dignified, means-tested support sufficient for a modest but decent standard of living, funded from general revenue and the sovereign wealth fund.
+
+5.     No assistance programme may ever be extended to non-citizens except in cases of proven immediate humanitarian emergency, and never for longer than ninety days.
+
+6.     All programmes under this Article shall be administered with maximum transparency and minimum bureaucracy. Fraudulent claims or administrative abuse shall be punished as theft from the common treasury.
+
+7.     Citizens who, after exhaustive efforts under sections 2–3, remain persistently unable to maintain employment or basic self-care despite apparent physical and mental capacity may be referred by a physician and one vocational assessor for intensive therapeutic or residential rehabilitation. Such programmes shall be voluntary, dignified, and aimed at restoration to productive life; participation shall entitle the citizen to continued modest state support for the duration of treatment and a reasonable recovery period thereafter. Permanent idleness without diagnosed incapacity shall not be subsidised.
+
+8.     Fraud and Multiple Claims Prohibited
+      a)     No individual may receive more than one form of support under this Article, and each support claim shall apply solely to the care of a single dependent individual or, in the case of minor children, the claimant’s own children as a collective unit. Overlapping claims, such as simultaneous support for child-rearing and care of infirm relatives, or stacking multiple infirm-relative claims, are prohibited.
+      b)     Fraudulent claims or administrative abuse, including but not limited to false representations of incapacity, non-delivery of claimed care, or circumvention of verification requirements, shall be classified as aggravated theft from the common treasury. Upon conviction, the offender shall be punished by imprisonment of five to fifteen years, immediate repayment of all benefits received plus treble damages payable to the sovereign wealth fund, and permanent ineligibility for all public assistance programmes under this Constitution.
+  `.trim(),
+
+  precis: `
+Article 27 embodies the principle of national solidarity as a temporary bridge to self-reliance, ensuring that citizens facing hardship are supported in a way that honors their dignity and potential for contribution. This provision is crucial because it recognizes the inherent value of every citizen’s ability to participate in the nation’s prosperity, drawing from the historical European ethos of communal support tempered by individual responsibility, as seen in traditional guild systems and early welfare models that emphasized work and merit. By mandating immediate job placement, training, or public works for the able-bodied unemployed, it secures the freedom to pursue meaningful employment without the dehumanizing trap of perpetual dependency, preventing the social decay and economic stagnation that arise from unchecked idleness. In an age of automation and economic disruption, this article safeguards against the exploitation of vulnerability by supranational entities or domestic bureaucracies, fostering a resilient society where assistance accelerates rather than hinders personal achievement.
+
+This article also prevents crimes against the common good, such as fraud, bureaucratic abuse, and the moral hazard of subsidizing laziness, by enforcing strict conditions like active participation in programs and penalties for refusing reasonable work offers. It protects the treasury from being drained by non-citizens or indefinite claims, limiting aid to proven emergencies and excluding foreigners beyond short humanitarian needs, thereby preserving resources for the posterity of the founding peoples and averting the demographic and fiscal burdens of open-ended immigration welfare. The means-tested support for the truly disabled, elderly, or family caregivers upholds a compassionate meritocracy, where aid is tied to verified incapacity and aimed at maintaining a modest standard of living, thus thwarting the corruption of entitlement cultures that have historically undermined European nations’ vitality. By prioritizing voluntary rehabilitation for those struggling with self-care, it addresses modern challenges like mental health crises without coercing citizens, ensuring that the Republic’s support systems enhance rather than erode the freedoms of autonomy and productivity.
+
+Ultimately, Article 27 fortifies the human experience of freedom by embedding solidarity within a framework of accountability, shielding future generations from the tyrannies of poverty traps and resource misallocation that plague outdated governance models. It prevents the crime of generational theft by funding programs transparently from general revenue and sovereign wealth, without imposing income taxes, aligning with the Charter’s prohibition on such levies to promote economic liberty. In doing so, it upholds the European heritage of rational, efficient communal aid, ensuring that the Republic remains a beacon of merit-driven progress where temporary assistance restores individuals to autonomy.
+  `.trim(),
+};
