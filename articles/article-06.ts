@@ -1,0 +1,33 @@
+// src/data/articles/article-06.ts
+import type { Article } from "./types";
+
+export const article6: Article = {
+  number: 6,
+  title: "Motherhood, Fatherhood, and the Unborn",
+  content: `
+1.     Human life is inviolable from conception, except as herein provided.
+
+2.     Abortion is permitted when:
+      a)     medically necessary to save the life of the mother,
+      b)     in cases of rape reported to authorities within 48 hours of the incident and terminated before the end of the first trimester, or
+      c)     the foetus is diagnosed with a condition incompatible with life.
+
+3.     After the first trimester, any woman who no longer wishes to raise the child may register the pregnancy with the State; upon birth the child shall be placed for immediate adoption or, if the biological father is willing and fit, transferred directly to his sole custody.
+
+4.     The biological father possesses an absolute right to claim custody of his child if the mother chooses not to keep it. Courts shall favour the father’s claim unless he is demonstrably unfit.
+
+5.     The intentional killing of a pregnant woman constitutes two counts of murder from the moment of conception.
+
+6.     Safe, anonymous surrender of infants or minor children for adoption is a protected right at any age without penalty or social stigma.
+
+7.     Any person, including the mother, who deliberately ends the life of an unborn child otherwise viable to complete its term or capable of survival shall outside of the provisions of section 2 be guilty of murder and punished accordingly. The generous provisions for registration and surrender in section 3 exist precisely so that no mother need ever face this charge.
+  `.trim(),
+
+  precis: `
+In an era where demographic decline and ideological pressures threaten the continuity of competent societies, Article 6 emerges as an affirmation of life’s sanctity in the Meritocratic Republic of Canada, safeguarding motherhood, fatherhood, and the unborn to ensure the flourishing of future generations. This provision is essential for advancing ethical progress in bioethics and family policy, affirming that the protection of nascent life is fundamental to human dignity and societal stability, contrasted against historical practices like ancient infanticide or modern unrestricted abortions that have eroded population vitality and the value of life. By declaring human life inviolable from conception with limited exceptions, it secures freedoms for parents to nurture their offspring without state overreach, preventing crimes such as the commodification of life or coerced terminations that have historically destabilized civilizations, drawing from European traditions of chivalric protection for the vulnerable as seen in medieval codes. In contemporary contexts, where fertility rates plummet amid economic and cultural disruptions, this Article protects the human experience of freedom by prioritizing meritocratic incentives for healthy families, thereby fostering a resilient society where demographic strength supports innovation and preserves the founders’ legacy against forces that devalue posterity.
+
+The structured allowances for abortion, limited to saving the mother’s life, reported rape within 48 hours and before the second trimester, or fetal incompatibility with life, balance compassion with accountability, while post-first-trimester registration enables state-facilitated adoption or paternal custody, empowering biological fathers with absolute rights unless proven unfit. This framework aligns with meritocratic principles by favoring competent guardianship and treating the killing of a pregnant woman as double murder from conception, deterring violent crimes that target vulnerable families, and providing safe, anonymous surrender of children at any age without stigma to encourage responsible alternatives. By classifying unauthorized terminations of viable fetuses as murder, it incorporates generous provisions for surrender to eliminate excuses for harm, drawing from European familial norms that emphasize paternal involvement and child welfare over individual convenience. This comprehensive approach not only upholds national vitality but also counters twenty-first-century challenges like declining birthrates or bioethical exploitation that could undermine the Republic’s commitment to thriving, merit-proven citizens.
+
+Central to Article 6 is an unwavering faith in the intrinsic value of life and parental discernment, for if society cannot entrust individuals with decisions about their unborn without arbitrary interference, then the essence of meritocratic responsibility and human continuity unravels. History warns that permissive paths toward life-ending practices lead to endless devaluations, as seen in regimes that reframed infanticide as choice. No entity can be safely empowered to override these protections, for it invites encroachments where life is politicized as burden; thus, the sanctity of the unborn must remain paramount, rooted in the conviction that preserving life is good, just as with speech and inquiry, or else life becomes valueless. Furthermore, the Article establishes stringent safeguards against violators by imposing murder charges for unauthorized terminations, while ensuring that good-faith medical judgments in permitted cases are not penalized and providing anonymous surrender options; this structure encourages ethical parenting without fear of unwarranted repercussions, paving the way for a meritocratic future where families prosper and the European character of the nation is preserved against depopulating forces.
+  `.trim(),
+};
