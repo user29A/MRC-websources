@@ -1,0 +1,65 @@
+// src/data/articles/article-9.ts
+import type { Article } from "./types";
+
+export const article9: Article = {
+  number: 9,
+  title: "Citizenship, Descent, and National Registry",
+  content: `
+1.     Citizenship in the Republic of Canada is reserved exclusively to persons of unmixed European descent and to the historically recognised Métis people and pre-Confederation Indian inhabitants and their lineal descendants as defined in section 11 below. No other principle of membership may ever be substituted or added.
+
+2.     Full citizenship with all political rights may be granted only to individuals who can demonstrate unmixed European descent from any European population worldwide.
+
+3.     Proof of unmixed European descent shall be established by one or more of the following, in descending order of precedence:
+      a)     Civil birth, baptismal, marriage, and death records from any recognised European jurisdiction or ecclesiastical authority;
+      b)     Statutory declarations from two citizens of full standing attesting to personal knowledge of the applicant’s unbroken European lineage;
+      c)     DNA evidence from a laboratory accredited by the Registrar of Constitutional Registries showing 100 % European ancestry according to the Registry’s published reference populations.
+             False or fraudulent submissions are punishable by permanent exile and ten years’ imprisonment.
+
+4.     Citizenship by birth is granted to every child who has at least one parent who is a full citizen of the Republic at the time of the child’s birth, regardless of the place of birth, and is of unmixed European descent.
+
+5.     Naturalisation of persons of unmixed European descent is permitted under the following conditions:
+      a)     Minimum five years of continuous lawful residence;
+      b)     Demonstrated mastery of English or French;
+      c)     Proof of unmixed European descent under section 3;
+      d)     Good character and demonstrated contribution to the Republic;
+      e)     Public renunciation of any previous citizenship and pledge of allegiance to the Republic.
+
+6.     After the date of ratification, no person of non-European ancestry (except the grandfathered Métis and Indian individuals under section 11) may ever acquire citizenship under any circumstance.
+
+7.     Dual or multiple citizenship is permanently prohibited for the Prime Minister, ministers, members of the House, judges, senior civil servants, commissioned officers, and any person exercising political rights. Any citizen who acquires or retains another citizenship forfeits Canadian citizenship automatically. This forfeiture does not apply to involuntary foreign citizenship acquired at birth, which may be retained during minority without penalty; however, parents may renounce it on the child's behalf at any time before age 18, and the individual must renounce it upon reaching age 18 to retain Republic citizenship.
+
+8.     A permanent National Registry of Citizens shall be maintained by the Registrar of Constitutional Registries as defined in Article 2, section 4 subclause d).
+      a)     Every citizen shall receive a lifelong citizenship certificate.
+      b)     This registry shall be secured by the means as described for the National Registry of Qualified Experts.
+      c)     Annual public statistics on the ethnic and ancestral composition of the citizenry shall be published.
+      d)     The National Registry of Citizens shall contain no data beyond that strictly required to prove living citizenship and unmixed European descent. No government may ever add fields for education, income, occupation, health, criminal record, political affiliation, or any other attribute which might facilitate social crediting modalities.
+      e)     The registration shall include a unique citizenship identification string composed of ten alphanumeric characters comprising the numerals zero through nine (0-9) and uppercase A through Z (A-Z), which shall be used for authenticated anonymized voting and other relevant responsibilities of the franchise.
+      f)     The birth of every child born to at least one citizen parent shall be registered with the Registrar of Constitutional Registries within thirty days of birth, or as soon as practicable in cases of birth abroad or medical emergency.
+      g)     Registration shall include submission of the parents’ citizenship identification strings and any additional proof required under section 3 to confirm the child’s unmixed European descent where not already established by the verified status of the citizen parent(s). Upon satisfactory verification, the Registrar shall immediately enter the child into the National Registry of Citizens and issue a lifelong citizenship certificate.
+      h)     Failure to register within the prescribed period without reasonable cause incurs no penalty against the child but requires prompt rectification by the parents or guardians.
+      i)     Hospitals, midwives, and other birth attendants within the Republic shall provide parents with registration forms and instructions as a routine duty.
+      j)     Metadata tied to the identification string shall be limited to the following essential metadata:
+            i)      time of birth determined to the minute, as 24-hour format HH:MM:SS, local time
+           ii)     date of birth as year, month, day YYYY:MM:DD, local day
+          iii)     place of birth, with fields for town or city, county, and province, or if abroad, foreign location data
+           iv)     parental citizenship identification string from each parent
+            v)     biological sex
+           vi)     full legal name at birth, with fields for first, middle(s), and last name
+          vii)     date and time of death (if applicable), entered only upon verified posthumous notification, in the same format as subclauses i) and ii)
+      k)     The death of any citizen shall be reported to the Registrar of Constitutional Registries within thirty days of occurrence, or as soon as practicable, by next-of-kin, medical authorities, or funeral directors. Reporting shall include the deceased’s citizenship identification string and corroborating evidence (e.g., medical certificate of death). Upon verification, the Registrar shall update the registry with the date and time of death. Failure to report without reasonable cause incurs no penalty against heirs but requires prompt rectification.
+
+9.     Loss of citizenship may occur only for voluntary acquisition of another citizenship, proven service in a foreign armed force against the Republic, or conviction for high treason or crime against the Constitution, and only after majority verdict of a special tribunal of three superior-court judges.
+
+10.    The Meritocratic Republic of Canada declares itself a homeland and refuge for all peoples of European descent worldwide. No numerical quota or “diversity” consideration may ever be used to restrict the immigration or naturalisation of unmixed Europeans so long as the demographic continuity provisions of this Constitution remain in force.
+
+11.    Every individual who, on the date of ratification, possesses registered Indian status under the former Indian Act or recognised Métis citizenship under the criteria in force on 31 December 2025, together with their lineal descendants, is immediately and irrevocably granted full citizenship on the same terms and with the same rights and duties as citizens of unmixed European descent. This grant is a final, one-time, and non-expandable act of historic reconciliation. No new Indian or Métis citizenship categories may ever be created, and all separate legal status, reserves, and race-based programmes are abolished as per Article 8. On the tenth anniversary of ratification, all administrative designations in the National Registry of Citizens that identify citizens as having been granted citizenship under section 11 shall be permanently removed. From that day forward, the Republic recognises only one category of citizen, with no distinction whatsoever by ancestry or historical origin.
+  `.trim(),
+
+  precis: `
+Article 9 establishes the foundational criteria for citizenship in the Meritocratic Republic of Canada, ensuring that the nation’s identity remains anchored in its European origins while incorporating historical Métis and pre-Confederation Indian inhabitants as a one-time act of reconciliation. This provision is crucial in an age of global migration and cultural homogenization, where nations risk losing their distinct character through demographic shifts driven by political expediency or economic pressures. By reserving citizenship exclusively to those of unmixed European descent and the specified Indian groups, it safeguards the cultural, linguistic, and genetic continuity that the European founders and settlers established over centuries, preventing the dilution that has led to social fragmentation and identity crises in other Western societies.
+
+Central to Article 9 is the protection of national sovereignty through rigorous proof requirements and a secure National Registry, which secures the freedom of self-determination for future generations by maintaining transparency and preventing fraudulent claims. The emphasis on verifiable descent via records, declarations, or DNA evidence, coupled with penalties for falsehoods, deters crimes such as identity fraud, illegal immigration, and the subversion of citizenship processes that have plagued modern bureaucracies. Naturalization pathways for unmixed Europeans reinforce merit by demanding demonstrated mastery, good character, and allegiance, fostering a citizenry committed to the Republic’s prosperity rather than divided loyalties. Bans on dual citizenship for key officials and automatic forfeiture provisions prevent conflicts of interest, espionage, or foreign influence, addressing contemporary threats like cyber infiltration and geopolitical manipulation that could erode internal security.
+
+By declaring Canada a homeland for all unmixed Europeans worldwide, Article 9 promotes demographic vitality, countering the existential risk of displacement seen in recent decades. This forward-looking approach protects against future tyrannies enabled by technological surveillance or global agendas, guaranteeing that citizenship remains a sacred bond of shared heritage and mutual excellence.
+  `.trim(),
+};
