@@ -1,0 +1,26 @@
+// src/data/articles/article-26.ts
+import type { Article } from "./types";
+
+export const article26: Article = {
+  number: 26,
+  title: "Equality Before the Law",
+  content: `
+1.     From the date of ratification, all residents of Canada, as defined in Article 9, are equal before the law without privilege or disability on account of race, ethnicity, sex, age, ancestry, or any other attribute.
+
+2.     The Department of Indian Affairs, all race-based treaties, perpetual cash transfers, and separate legal or judicial systems are hereby abolished.
+
+3.     Existing reserves are converted into ordinary private, fee-simple land owned by their current residents or bands collectively, as they choose, with full property rights and municipal status. They may be sold, leased, or developed at the owners’ sole discretion.
+
+4.     Traditional hunting and fishing rights exercised by Métis and Indian individuals for personal, non-commercial sustenance are grandfathered for all current rights-holders and their lineal descendants, provided such activities remain sustainable and do not interfere with the rights of other landowners. These activities shall be monitored by the respective provinces, which retain the authority to implement necessary management measures to ensure long-term sustainability, prevent overexploitation, or address environmental concerns.
+
+5.     All federal payments, subsidies, or tax exemptions granted solely on the basis of aboriginal ancestry cease immediately upon ratification, except for a single, transparent, ten-year transitional equalisation fund distributed on a per-capita basis to every resident of former reserve lands (regardless of ancestry) to ease the shift to full municipal taxation and services. After ten years, no further race- or ancestry-based payments may be made.
+  `.trim(),
+
+  precis: `
+Article 26 stands as a cornerstone of genuine equality, ensuring that all residents are treated identically under the law without favoritism or penalty based on immutable characteristics such as race, ethnicity, or ancestry. This provision is vital because it dismantles historical structures that have perpetuated division and inefficiency, fostering a society where advancement is driven solely by individual merit, competence, and contribution rather than inherited privileges or grievances. By abolishing race-based treaties, separate judicial systems, and perpetual subsidies, the article prevents the entrenchment of dependency and resentment that have historically eroded national unity and economic vitality. It secures the freedom for every citizen to live on a level playing field, where success is earned through personal effort and talent, aligning with the European heritage of innovation, self-reliance, and rational governance that built this nation. In an era of technological and demographic pressures, this equality safeguards against the manipulation of identity politics, which could otherwise be weaponized to undermine the prosperity and cultural continuity of the founding peoples.
+
+This article also protects against the crimes of institutional corruption and fiscal irresponsibility that arise from opaque, ancestry-linked entitlements. By converting reserves into private property with full rights of ownership and development, it empowers former residents to integrate fully into the meritocratic society, preventing the isolation and stagnation that breed poverty, crime, and social decay. The grandfathering of sustainable hunting and fishing rights for personal use honors practical traditions without creating perpetual exemptions that could lead to environmental overexploitation or conflicts with broader property rights. Moreover, the ten-year transitional fund, distributed per capita without regard to ancestry, mitigates immediate hardships while enforcing a clear endpoint to race-based aid, thus averting the moral hazard of indefinite welfare that discourages self-improvement. In doing so, Article 26 thwarts the subtle tyranny of divided loyalties, ensuring that no group is artificially elevated or diminished, which could otherwise facilitate demographic displacement or cultural erosion.
+
+Ultimately, Article 26 fortifies the human experience of freedom by embedding meritocracy into the legal fabric, shielding future generations from the pitfalls of engineered inequality that have plagued modern societies. It prevents the crime of genocide through assimilation or favoritism, as defined in international norms, by promoting a unified national identity rooted in shared laws and opportunities rather than fragmented privileges. This approach not only enhances social cohesion but also bolsters economic liberty, as resources once diverted to unsustainable programs can be redirected toward infrastructure, education, and innovation that benefit all. In a world where supranational forces seek to dissolve borders and heritages, this article acts as a bulwark, ensuring that the freedoms won by European settlers remain intact, allowing their posterity to thrive in a sovereign, merit-driven republic unburdened by the shadows of past inequities.
+  `.trim(),
+};
