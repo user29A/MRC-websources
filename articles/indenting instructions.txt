@@ -1,0 +1,31 @@
+### Indentation Instructions for Articles
+
+Please format the `content` string in the TypeScript article file using the following exact indentation rules (spaces only, no tabs):
+
+- **Top-level numbered clauses (1., 2., etc.)**: 0 leading spaces before the number.
+- **Letter subclauses (a), b), c), etc.)**: exactly 6 spaces before the letter.
+- **Roman-numeral subclauses (i), ii), iii), etc.)**: exactly 12 spaces before the roman numeral.
+- **Parenthesised subclauses ((i), (ii), etc.)**: exactly 18 spaces before the parenthesis.
+- **Continuation lines** (wrapped text after a clause marker): align visually under the start of the text on the line above (usually 8–10 spaces for top-level, 14–16 for letter level, 20–22 for roman, 26–28 for parenthesised — adjust slightly for readability so long lines hang neatly).
+- **Unnumbered introductory paragraphs** (e.g., before section 1 or transitional text): 0 leading spaces.
+- **Closing unnumbered paragraphs and signature** (after the numbered sections): 0 leading spaces.
+- **Blank lines** between major sections or paragraphs: preserve exactly one blank line (i.e., two `\n` in the template literal).
+- Use `.trim()` at the end of the template literal to remove leading/trailing whitespace from the whole string.
+
+Example snippet of desired structure:
+
+```
+1.     Top-level clause text...
+
+2.     Another top-level...
+      a)     Letter subclause text that may wrap
+            onto continuation lines aligned here...
+      b)     Next letter...
+
+3.     Third top-level...
+      a)     ...
+            i)      Roman subclause...
+           ii)     Next roman...
+
+Unnumbered closing paragraph with 0 spaces...
+```
