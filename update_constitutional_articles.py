@@ -189,35 +189,12 @@ def extract_article_block(full_text: str, article_num: int) -> Optional[Tuple[st
             precis_text = re.sub(r'(?m)^\s*\d+\s*$', '', precis_raw)  # remove lines that are only digits
             precis_text = re.sub(r'\n\s*\d+\s*$', '', precis_text)    # remove trailing page number at end
 
-            # Reconstruct paragraphs, treating single newlines inside paragraphs as continuation
-            # (handles PDF page breaks inside a paragraph)
-            lines = precis_text.splitlines()
-            paragraphs = []
-            current_para_lines = []
-
-            sentence_end = re.compile(r'[.!?]$')
-
-            for line in lines:
-                stripped = line.strip()
-                if not stripped:
-                    # blank line -> end of paragraph
-                    if current_para_lines:
-                        paragraphs.append(' '.join(current_para_lines))
-                        current_para_lines = []
-                    continue
-
-                current_para_lines.append(stripped)
-
-                # If line ends with sentence punctuation, treat as end of paragraph
-                if sentence_end.search(stripped):
-                    paragraphs.append(' '.join(current_para_lines))
-                    current_para_lines = []
-
-            # Flush any remaining lines
-            if current_para_lines:
-                paragraphs.append(' '.join(current_para_lines))
-
-            precis = '\n\n'.join(paragraphs)
+            # Normalize: convert single newlines (page breaks / soft wraps) to spaces,
+            # but preserve double newlines as paragraph separators.
+            precis_text = re.sub(r'(?<!\n)\n(?!\n)', ' ', precis_text)
+            precis_text = re.sub(r'\n{3,}', '\n\n', precis_text)  # collapse extra blank lines
+            precis_paras = [p.strip() for p in precis_text.split('\n\n') if p.strip()]
+            precis = '\n\n'.join(precis_paras)
 
             return title, content_block, precis
 
