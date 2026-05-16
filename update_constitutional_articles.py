@@ -3,7 +3,7 @@
 update_constitutional_articles.py
 
 Automates the extraction and formatting of Articles from the Meritocratic Republic of Canada
-PDF (or adaptable to DOCX) into properly indented JSON files for web display.
+DOCX into properly indented JSON files for web display.
 
 Follows the exact indentation rules from indenting instructions.txt:
 - Top-level (1., 2., ...): 0 leading spaces before number; text after "X.     "
@@ -17,20 +17,20 @@ Usage:
   python update_constitutional_articles.py --article 5    # Only Article 5 (padded as 05)
   python update_constitutional_articles.py --article 1 --dry-run   # Preview without writing
 
-The script reads from the master PDF and produces article-XX.json in the output directory.
+The script reads from the master DOCX and produces article-XX.json in the output directory.
 This ensures the digital representation of the Constitution remains synchronized with the
 authoritative source document, supporting transparent dissemination of the Meritocratic framework.
 """
 
-import pdfplumber
 import re
 import json
 import argparse
 from pathlib import Path
 from typing import Optional, Tuple, List
+from docx import Document
 
 # Configuration
-PDF_PATH = Path(r"C:\Users\Joseph E Postma\Documents\Illuminism\MRC\websources\completePDF\Meritocratic Republic of Canada.pdf")
+DOCX_PATH = Path(r"C:\Users\Joseph E Postma\Documents\Illuminism\MRC\websources\completePDF\Meritocratic Republic of Canada.docx")
 OUTPUT_DIR = Path(r"C:\Users\Joseph E Postma\Documents\Illuminism\MRC\websources\articles")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -77,12 +77,11 @@ def detect_clause_level(line: str) -> Optional[Tuple[str, str, str, int]]:
 def format_article_content(content_block: str) -> str:
     """
     Reformat the raw content block into a single string with exact indentation per rules.
-    Each clause is output as a single line (original line breaks within clauses are discarded).
+    Handles both numbered clauses and unnumbered introductory/closing paragraphs.
     """
     lines = content_block.split('\n')
     formatted_lines: List[str] = []
     current_clause = None  # (level, marker, text_parts[])
-    i = 0
 
     def flush_clause():
         nonlocal current_clause
@@ -100,18 +99,14 @@ def format_article_content(content_block: str) -> str:
             prefix = f"{' ' * 18}{marker}     {text}"
         else:
             prefix = text
-        # Add blank line before new top-level clause (except first)
         if level == "top" and formatted_lines and formatted_lines[-1] not in ('', None):
             formatted_lines.append('')
         formatted_lines.append(prefix)
         current_clause = None
 
-    while i < len(lines):
-        line = lines[i]
+    for line in lines:
         stripped = line.strip()
-
         if not stripped:
-            i += 1
             continue
 
         detection = detect_clause_level(line)
@@ -121,91 +116,82 @@ def format_article_content(content_block: str) -> str:
             level, marker, rest, _ = detection
             current_clause = (level, marker, [rest])
         else:
-            # Continuation text for current clause
+            # Unnumbered paragraph or continuation
             if current_clause is not None:
+                # Treat as continuation of current clause
                 current_clause[2].append(stripped)
-
-        i += 1
+            else:
+                # Unnumbered paragraph at 0 spaces
+                if formatted_lines and formatted_lines[-1] not in ('', None):
+                    formatted_lines.append('')
+                formatted_lines.append(stripped)
 
     flush_clause()
 
-    # Clean up multiple blank lines
     result = '\n'.join(formatted_lines)
     result = re.sub(r'\n{3,}', '\n\n', result)
     return result.strip()
 
-def extract_precis(full_text: str, article_start_pos: int) -> str:
-    """Extract and clean the Precis section following an Article."""
-    remaining = full_text[article_start_pos:]
-    precis_match = re.search(r'Precis:\s*\n(.*?)(?=\nArticle \d+ –|\Z)', remaining, re.DOTALL)
-    if not precis_match:
-        return ""
-    precis_text = precis_match.group(1).strip()
-    # Normalize paragraphs
-    paras = [p.strip() for p in re.split(r'\n\s*\n', precis_text) if p.strip()]
-    return '\n\n'.join(paras)
-
-def extract_article_block(full_text: str, article_num: int) -> Optional[Tuple[str, str, str]]:
+def extract_article_block(doc: Document, article_num: int) -> Optional[Tuple[str, str, str]]:
     """
-    Extract (title, content_block, precis) for a given article number.
-    Matches "Article N – " and captures the actual title from the heading.
+    Extract (title, content_block, precis) for a given article number from the DOCX.
+    Collects every paragraph between the target article heading and the next article heading,
+    then splits the collected block on the first "Precis:" paragraph.
     """
-    title_pattern = rf'Article {article_num} – (.*)'
+    paragraphs = doc.paragraphs
+    title = None
+    article_paras = []
+    in_article = False
 
-    matches = list(re.finditer(title_pattern, full_text))
-    for m in matches:
-        title = m.group(1).strip()
-        start_pos = m.start()
-        following_text = full_text[start_pos : start_pos + 400]
-        # Heuristic: real content has the first clause soon after
-        if re.search(rf'{article_num}\.\s', following_text):
-            # Find end: next Article or end of document
-            end_search = re.search(r'\nArticle \d+ – ', full_text[start_pos + 1:])
-            if end_search:
-                block_end = start_pos + 1 + end_search.start()
-            else:
-                block_end = len(full_text)
+    article_heading_pattern = re.compile(rf'^Article\s+{article_num}\s*[–-]\s*(.+)$', re.IGNORECASE)
+    next_article_pattern = re.compile(r'^Article\s+\d+\s*[–-]', re.IGNORECASE)
 
-            block = full_text[start_pos:block_end]
+    for para in paragraphs:
+        text = para.text.strip()
+        if not text:
+            continue
 
-            # Split content and precis
-            precis_split = re.split(r'\nPrecis:\s*\n', block, maxsplit=1)
-            if len(precis_split) == 2:
-                content_raw = precis_split[0]
-                precis_raw = precis_split[1]
-            else:
-                content_raw = block
-                precis_raw = ""
+        heading_match = article_heading_pattern.match(text)
+        if heading_match and not in_article:
+            title = heading_match.group(1).strip()
+            in_article = True
+            continue
 
-            # Clean content: remove the title line itself for formatting start
-            content_lines = content_raw.split('\n')
-            # Skip the "Article X – Title" line and any page number/header
-            content_lines = [ln for ln in content_lines if not (ln.strip().startswith('Article ') and str(article_num) in ln)]
-            # Remove standalone page numbers (pure digits)
-            content_lines = [ln for ln in content_lines if not re.match(r'^\d+$', ln.strip())]
-            content_block = '\n'.join(content_lines).strip()
+        if in_article:
+            if next_article_pattern.match(text):
+                break
+            article_paras.append(text)
 
-            # Remove page numbers (standalone numeric lines or trailing numbers)
-            precis_text = re.sub(r'(?m)^\s*\d+\s*$', '', precis_raw)  # remove lines that are only digits
-            precis_text = re.sub(r'\n\s*\d+\s*$', '', precis_text)    # remove trailing page number at end
+    if not title or not article_paras:
+        return None
 
-            # Normalize: convert single newlines (page breaks / soft wraps) to spaces,
-            # but preserve double newlines as paragraph separators.
-            precis_text = re.sub(r'(?<!\n)\n(?!\n)', ' ', precis_text)
-            precis_text = re.sub(r'\n{3,}', '\n\n', precis_text)  # collapse extra blank lines
-            precis_paras = [p.strip() for p in precis_text.split('\n\n') if p.strip()]
-            precis = '\n\n'.join(precis_paras)
+    # Find the first paragraph that starts with "Precis:"
+    precis_start = None
+    for i, p in enumerate(article_paras):
+        if p.lower().startswith('precis:'):
+            precis_start = i
+            break
 
-            return title, content_block, precis
+    if precis_start is not None:
+        content_paras = article_paras[:precis_start]
+        precis_paras = article_paras[precis_start:]
+        # Strip the "Precis:" prefix from the first precis paragraph
+        if precis_paras:
+            precis_paras[0] = precis_paras[0][7:].strip()
+    else:
+        content_paras = article_paras
+        precis_paras = []
 
-    return None
+    content_block = '\n'.join(content_paras)
+    precis = '\n\n'.join([p for p in precis_paras if p]) if precis_paras else ""
+
+    return title, content_block, precis
 
 def generate_article_json(article_num: int, dry_run: bool = False) -> Optional[dict]:
-    """Generate the JSON dict for one article."""
-    with pdfplumber.open(PDF_PATH) as pdf:
-        full_text = '\n'.join(page.extract_text() or '' for page in pdf.pages)
+    """Generate the JSON dict for one article from the DOCX."""
+    doc = Document(DOCX_PATH)
 
-    result = extract_article_block(full_text, article_num)
+    result = extract_article_block(doc, article_num)
     if not result:
         print(f"ERROR: Could not extract Article {article_num}")
         return None
@@ -234,7 +220,7 @@ def generate_article_json(article_num: int, dry_run: bool = False) -> Optional[d
     return article_data
 
 def main():
-    parser = argparse.ArgumentParser(description="Update constitutional article JSON files from master PDF.")
+    parser = argparse.ArgumentParser(description="Update constitutional article JSON files from master DOCX.")
     parser.add_argument("--article", type=int, required=True, help="Article number to process (1-31)")
     parser.add_argument("--dry-run", action="store_true", help="Preview without writing files")
     args = parser.parse_args()
