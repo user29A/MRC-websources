@@ -1,14 +1,6 @@
-when files updated
+save the pdf here
 
-git add .
-git commit -m "message"
-git push
-
-
-
-
-
--for updating articles with python script:
+save the docx file here with identical name as pdf
 with word file open:
 Press Alt+F11 to open the VBA Editor. 
 Press Ctrl+G to open the Immediate window. 
