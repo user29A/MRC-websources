@@ -30,46 +30,10 @@ from pathlib import Path
 from typing import Optional, Tuple, List
 
 # Configuration
-PDF_PATH = Path("/home/workdir/attachments/Meritocratic Republic of Canada - TRIM.pdf")
-OUTPUT_DIR = Path("/home/workdir/artifacts")
+PDF_PATH = Path(r"C:\Users\Joseph E Postma\Documents\Illuminism\MRC\websources\completePDF\Meritocratic Republic of Canada.pdf")
+OUTPUT_DIR = Path(r"C:\Users\Joseph E Postma\Documents\Illuminism\MRC\websources\articles")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-def get_article_title_and_number(article_num: int) -> Tuple[str, str]:
-    """Map article number to expected title (for validation)."""
-    titles = {
-        1: "Freedom of Speech and Expression",
-        2: "Freedom of Inquiry and Redress",
-        3: "Right to Keep and Bear Arms and Self-Defence",
-        4: "Medical Freedom and the Healing Arts",
-        5: "Protection of Children and the Integrity of Biological Sex",
-        6: "Motherhood, Fatherhood, and the Unborn",
-        7: "Religious Freedom and Cultural Continuity",
-        8: "Merit, National Preference, and Demographic Continuity",
-        9: "Citizenship, Descent, and National Registries",
-        10: "The Two Founding Peoples and Their Languages",
-        11: "Emergency Powers",
-        12: "Sovereignty",
-        13: "Structure of Government",
-        14: "Public Service",
-        15: "The Judiciary and Public Safety",
-        16: "Citizenship and the Franchise",
-        17: "Marriage, Divorce, and the Protection of the Family",
-        18: "Education",
-        19: "Agriculture and Food",
-        20: "Fiscal and Monetary Sovereignty",
-        21: "Health and Medical Care",
-        22: "Infrastructure, Energy, and National Development",
-        23: "Human Primacy",
-        24: "Property Rights and Economic Liberty",
-        25: "Environmental and Resource Sovereignty",
-        26: "Equality Before the Law",
-        27: "National Solidarity and Temporary Assistance",
-        28: "Military Service, National Defence, and Policing",
-        29: "Territorial Integrity and Provincial Relations",
-        30: "Amendment and Revision of Articles and Provisions",
-        31: "Abrogation and the Eternal Right of the People",
-    }
-    return titles.get(article_num, "Unknown Title"), f"{article_num:02d}"
 
 def detect_clause_level(line: str) -> Optional[Tuple[str, str, str, int]]:
     """
@@ -195,14 +159,13 @@ def extract_precis(full_text: str, article_start_pos: int) -> str:
 def extract_article_block(full_text: str, article_num: int) -> Optional[Tuple[str, str, str]]:
     """
     Extract (title, content_block, precis) for a given article number.
-    Picks the content occurrence (not TOC).
+    Matches "Article N – " and captures the actual title from the heading.
     """
-    title, _ = get_article_title_and_number(article_num)
-    # Pattern for title
-    title_pattern = rf'Article {article_num} – {re.escape(title)}'
+    title_pattern = rf'Article {article_num} – (.*)'
 
     matches = list(re.finditer(title_pattern, full_text))
     for m in matches:
+        title = m.group(1).strip()
         start_pos = m.start()
         following_text = full_text[start_pos : start_pos + 400]
         # Heuristic: real content has the first clause soon after
@@ -272,20 +235,14 @@ def generate_article_json(article_num: int, dry_run: bool = False) -> Optional[d
 
 def main():
     parser = argparse.ArgumentParser(description="Update constitutional article JSON files from master PDF.")
-    parser.add_argument("--article", type=int, help="Process only this article number (1-31)")
+    parser.add_argument("--article", type=int, required=True, help="Article number to process (1-31)")
     parser.add_argument("--dry-run", action="store_true", help="Preview without writing files")
     args = parser.parse_args()
 
-    if args.article:
-        if not 1 <= args.article <= 31:
-            print("Article number must be between 1 and 31.")
-            return
-        generate_article_json(args.article, dry_run=args.dry_run)
-    else:
-        print("Regenerating all 31 Articles from the master PDF...")
-        for num in range(1, 32):
-            generate_article_json(num, dry_run=args.dry_run)
-        print("\nAll articles processed. JSON files are in", OUTPUT_DIR)
+    if not 1 <= args.article <= 31:
+        print("Article number must be between 1 and 31.")
+        return
+    generate_article_json(args.article, dry_run=args.dry_run)
 
 if __name__ == "__main__":
     main()
