@@ -126,8 +126,15 @@ def format_article_content(content_block: str) -> str:
         else:
             # Unnumbered paragraph or continuation
             if current_clause is not None:
-                # Treat as continuation of current clause
-                current_clause[2].append(stripped)
+                # After a top-level clause, treat the next non-clause line as a separate unnumbered paragraph
+                if current_clause[0] == "top":
+                    flush_clause()
+                    if formatted_lines and formatted_lines[-1] not in ('', None):
+                        formatted_lines.append('')
+                    formatted_lines.append(stripped)
+                else:
+                    # For letter/roman/paren levels, append as continuation
+                    current_clause[2].append(stripped)
             else:
                 # Unnumbered paragraph at 0 spaces
                 if formatted_lines and formatted_lines[-1] not in ('', None):
