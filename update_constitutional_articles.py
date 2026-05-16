@@ -54,9 +54,14 @@ def detect_clause_level(line: str) -> Optional[Tuple[str, str, str, int]]:
     # Roman numeral subclause: i) ii) iii) ... (any valid roman numeral)
     m = re.match(r'^([ivxlcdm]+)\)\s+(.*)$', stripped, re.IGNORECASE)
     if m:
-        marker = m.group(1).lower() + ")"
-        rest = m.group(2)
-        return ("roman", marker, rest, 12)
+        roman_str = m.group(1).lower()
+        # Reject single letters that are also valid letter subclauses (e.g. "c)")
+        if len(roman_str) == 1 and roman_str in 'abcdefghijklmnopqrstuvwxyz':
+            pass  # fall through to letter check
+        else:
+            marker = roman_str + ")"
+            rest = m.group(2)
+            return ("roman", marker, rest, 12)
 
     # Letter subclause: a) b) etc. (single letter, after roman check)
     m = re.match(r'^([a-z])\)\s+(.*)$', stripped, re.IGNORECASE)
