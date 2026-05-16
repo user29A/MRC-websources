@@ -181,6 +181,8 @@ def extract_article_block(full_text: str, article_num: int) -> Optional[Tuple[st
             content_lines = content_raw.split('\n')
             # Skip the "Article X – Title" line and any page number/header
             content_lines = [ln for ln in content_lines if not (ln.strip().startswith('Article ') and str(article_num) in ln)]
+            # Remove standalone page numbers (pure digits)
+            content_lines = [ln for ln in content_lines if not re.match(r'^\d+$', ln.strip())]
             content_block = '\n'.join(content_lines).strip()
 
             precis = '\n\n'.join([p.strip() for p in re.split(r'\n\s*\n', precis_raw) if p.strip()])
