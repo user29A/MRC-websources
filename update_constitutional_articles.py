@@ -185,7 +185,11 @@ def extract_article_block(full_text: str, article_num: int) -> Optional[Tuple[st
             content_lines = [ln for ln in content_lines if not re.match(r'^\d+$', ln.strip())]
             content_block = '\n'.join(content_lines).strip()
 
-            precis = '\n\n'.join([p.strip() for p in re.split(r'\n\s*\n', precis_raw) if p.strip()])
+            # Remove page numbers (standalone numeric lines or trailing numbers)
+            precis_text = re.sub(r'(?m)^\s*\d+\s*$', '', precis_raw)  # remove lines that are only digits
+            precis_text = re.sub(r'\n\s*\d+\s*$', '', precis_text)    # remove trailing page number at end
+            precis_paras = [p.strip() for p in re.split(r'\n\s*\n', precis_text) if p.strip()]
+            precis = '\n\n'.join(precis_paras)
 
             return title, content_block, precis
 
