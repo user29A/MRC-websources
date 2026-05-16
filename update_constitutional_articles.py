@@ -51,10 +51,10 @@ def detect_clause_level(line: str) -> Optional[Tuple[str, str, str, int]]:
         rest = m.group(2)
         return ("top", marker, rest, 0)
 
-    # Roman numeral subclause: i) ii) iii) iv) etc. FIRST (to catch i), ii) before single-letter a))
-    m = re.match(r'^(i{1,3}|iv|v|vi{1,3}|ix|x)\)\s+(.*)$', stripped, re.IGNORECASE)
+    # Roman numeral subclause: i) ii) iii) ... (any valid roman numeral)
+    m = re.match(r'^([ivxlcdm]+)\)\s+(.*)$', stripped, re.IGNORECASE)
     if m:
-        marker = f"{m.group(1)})"
+        marker = m.group(1).lower() + ")"
         rest = m.group(2)
         return ("roman", marker, rest, 12)
 
@@ -65,11 +65,14 @@ def detect_clause_level(line: str) -> Optional[Tuple[str, str, str, int]]:
         rest = m.group(2)
         return ("letter", marker, rest, 6)
 
-    # Parenthesised roman: (i) (ii) etc.
-    m = re.match(r'^\((i{1,3}|iv|v|vi{1,3}|ix|x)\)\s+(.*)$', stripped, re.IGNORECASE)
+    # Parenthesised roman: (i) (ii) ... up to (xxx)
+    paren_roman = (
+        r'^\((m{0,3})(c[md]|d?c{0,3})(x[cl]|l?x{0,3})(i[xv]|v?i{0,3})\)\s+(.*)$'
+    )
+    m = re.match(paren_roman, stripped, re.IGNORECASE)
     if m:
-        marker = f"({m.group(1)})"
-        rest = m.group(2)
+        marker = "(" + (m.group(1) + m.group(2) + m.group(3) + m.group(4)).lower() + ")"
+        rest = m.group(5)
         return ("paren", marker, rest, 18)
 
     return None
