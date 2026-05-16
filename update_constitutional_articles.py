@@ -56,7 +56,7 @@ def detect_clause_level(line: str) -> Optional[Tuple[str, str, str, int]]:
     if m:
         roman_str = m.group(1).lower()
         # Special-case: single letters that will never be used as roman numerals
-        if roman_str in ('c', 'l'):
+        if roman_str in ('c', 'd', 'l'):
             pass  # fall through to letter check
         else:
             marker = roman_str + ")"
