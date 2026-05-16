@@ -77,68 +77,57 @@ def detect_clause_level(line: str) -> Optional[Tuple[str, str, str, int]]:
 def format_article_content(content_block: str) -> str:
     """
     Reformat the raw content block into a single string with exact indentation per rules.
+    Each clause is output as a single line (original line breaks within clauses are discarded).
     """
     lines = content_block.split('\n')
     formatted_lines: List[str] = []
-    last_level = None
-    last_text_start_col = 0  # approximate column where clause text starts
-
+    current_clause = None  # (level, marker, text_parts[])
     i = 0
+
+    def flush_clause():
+        nonlocal current_clause
+        if current_clause is None:
+            return
+        level, marker, parts = current_clause
+        text = ' '.join(parts)
+        if level == "top":
+            prefix = f"{marker}     {text}"
+        elif level == "letter":
+            prefix = f"{' ' * 6}{marker}     {text}"
+        elif level == "roman":
+            prefix = f"{' ' * 12}{marker}     {text}"
+        elif level == "paren":
+            prefix = f"{' ' * 18}{marker}     {text}"
+        else:
+            prefix = text
+        # Add blank line before new top-level clause (except first)
+        if level == "top" and formatted_lines and formatted_lines[-1] not in ('', None):
+            formatted_lines.append('')
+        formatted_lines.append(prefix)
+        current_clause = None
+
     while i < len(lines):
         line = lines[i]
         stripped = line.strip()
 
         if not stripped:
-            # Preserve some blank lines between major sections
-            if formatted_lines and formatted_lines[-1] != '':
-                formatted_lines.append('')
             i += 1
             continue
 
         detection = detect_clause_level(line)
 
         if detection:
-            level, marker, rest, base_indent = detection
-            last_level = level
-
-            if level == "top":
-                prefix = f"{marker}     {rest}"  # 0 leading + 5 spaces after .
-                last_text_start_col = len(f"{marker}     ")
-            elif level == "letter":
-                prefix = f"{' ' * 6}{marker}     {rest}"
-                last_text_start_col = 6 + len(f"{marker}     ")
-            elif level == "roman":
-                prefix = f"{' ' * 12}{marker}     {rest}"
-                last_text_start_col = 12 + len(f"{marker}     ")
-            elif level == "paren":
-                prefix = f"{' ' * 18}{marker}     {rest}"
-                last_text_start_col = 18 + len(f"{marker}     ")
-            else:
-                prefix = stripped
-                last_text_start_col = 0
-
-            # Add blank line before new top-level clause (except first)
-            if level == "top" and formatted_lines and formatted_lines[-1] not in ('', None):
-                formatted_lines.append('')
-
-            formatted_lines.append(prefix)
+            flush_clause()
+            level, marker, rest, _ = detection
+            current_clause = (level, marker, [rest])
         else:
-            # Continuation line or unnumbered header/ transitional text
-            if last_level == "top":
-                align = ' ' * 8 + stripped   # typical 8 spaces for top-level continuation
-            elif last_level == "letter":
-                align = ' ' * 14 + stripped
-            elif last_level == "roman":
-                align = ' ' * 20 + stripped
-            elif last_level == "paren":
-                align = ' ' * 26 + stripped
-            else:
-                # Unnumbered intro or header (0 spaces) or default
-                align = stripped
-
-            formatted_lines.append(align)
+            # Continuation text for current clause
+            if current_clause is not None:
+                current_clause[2].append(stripped)
 
         i += 1
+
+    flush_clause()
 
     # Clean up multiple blank lines
     result = '\n'.join(formatted_lines)
