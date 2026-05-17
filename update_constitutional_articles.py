@@ -44,8 +44,8 @@ def detect_clause_level(line: str) -> Optional[Tuple[str, str, str, int]]:
     if not stripped:
         return None
 
-    # Top-level: 1. or 10. etc.
-    m = re.match(r'^(\d+)\.\s+(.*)$', stripped)
+    # Top-level: 1. or 10. etc. (also accepts 10) style used in some articles)
+    m = re.match(r'^(\d+)[.)]\s+(.*)$', stripped)
     if m:
         marker = f"{m.group(1)}."
         rest = m.group(2)
@@ -236,14 +236,23 @@ def generate_article_json(article_num: int, dry_run: bool = False) -> Optional[d
 
 def main():
     parser = argparse.ArgumentParser(description="Update constitutional article JSON files from master DOCX.")
-    parser.add_argument("--article", type=int, required=True, help="Article number to process (1-31)")
+    parser.add_argument("--article", type=int, help="Article number to process (1-31)")
+    parser.add_argument("--all", action="store_true", help="Process all articles (1-31)")
     parser.add_argument("--dry-run", action="store_true", help="Preview without writing files")
     args = parser.parse_args()
 
-    if not 1 <= args.article <= 31:
-        print("Article number must be between 1 and 31.")
-        return
-    generate_article_json(args.article, dry_run=args.dry_run)
+    if args.all:
+        num = 1
+        while True:
+            result = generate_article_json(num, dry_run=args.dry_run)
+            if result is None:
+                break
+            num += 1
+    elif args.article is not None:
+        generate_article_json(args.article, dry_run=args.dry_run)
+    else:
+        print("Error: You must specify either --article N or --all")
+        parser.print_help()
 
 if __name__ == "__main__":
     main()
