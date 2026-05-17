@@ -9,8 +9,10 @@ git push
 
 
 -for updating articles with python script:
-with word file open:
+with word file open in completepdf folder:
 Press Alt+F11 to open the VBA Editor. 
 Press Ctrl+G to open the Immediate window. 
-Type ActiveDocument.Range.ListFormat.ConvertNumbersToText and press Enter.
+Type 
+ActiveDocument.Range.ListFormat.ConvertNumbersToText 
+ and press Enter.
 -there will be no immediate indicate, but numbering is now statis and will work with python article script
