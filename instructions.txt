@@ -16,3 +16,5 @@ Type
 ActiveDocument.Range.ListFormat.ConvertNumbersToText 
  and press Enter.
 -there will be no immediate indicate, but numbering is now statis and will work with python article script
+
+C:/Python314/python.exe "c:/Users/Joseph E Postma/Documents/Illuminism/MRC/websources/update_constitutional_articles.py" --article 23
