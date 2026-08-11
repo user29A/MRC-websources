@@ -4,17 +4,24 @@ git add .
 git commit -m "message"
 git push
 
+# Content layout (fetched by the website from GitHub raw main):
+#   articles/article-XX.json  -> /constitution list + /articles/[number]
+#   charter/charter.json      -> /constitution Charter section
+#   declaration/              -> (to be wired like charter)
+#   insights/insight-XX.json  -> /insights
+#   completePDF/              -> PDF download link
 
-
-
+# Edit the Charter text:
+#   Edit websources/charter/charter.json then git push this repo.
+#   No website redeploy required for wording-only changes (site revalidate=0).
 
 -for updating articles with python script:
 with word file open in completepdf folder:
-Press Alt+F11 to open the VBA Editor. 
-Press Ctrl+G to open the Immediate window. 
-Type 
-ActiveDocument.Range.ListFormat.ConvertNumbersToText 
+Press Alt+F11 to open the VBA Editor.
+Press Ctrl+G to open the Immediate window.
+Type
+ActiveDocument.Range.ListFormat.ConvertNumbersToText
  and press Enter.
--there will be no immediate indicate, but numbering is now statis and will work with python article script
+-there will be no immediate indicate, but numbering is now static and will work with python article script
 
 C:/Python314/python.exe "c:/Users/Joseph E Postma/Documents/Illuminism/MRC/websources/update_constitutional_articles.py" --article 23
