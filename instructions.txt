@@ -6,14 +6,16 @@ git push
 
 # Content layout (fetched by the website from GitHub raw main):
 #   articles/article-XX.json  -> /constitution list + /articles/[number]
-#   charter/charter.json      -> /constitution Charter section
-#   declaration/              -> (to be wired like charter)
-#   insights/insight-XX.json  -> /insights
-#   completePDF/              -> PDF download link
+#   charter/charter.json              -> /constitution Charter section
+#   declaration/declaration.json      -> /declaration page
+#   insights/insight-XX.json          -> /insights
+#   completePDF/                      -> PDF download link
 
-# Edit the Charter text:
-#   Edit websources/charter/charter.json then git push this repo.
-#   No website redeploy required for wording-only changes (site revalidate=0).
+# Edit Charter or Declaration text:
+#   Edit websources/charter/charter.json or websources/declaration/declaration.json
+#   then git push this repo. No website redeploy required for wording-only changes
+#   (site revalidate=0). Website may show optional section headings for layout;
+#   those headings live in the JSON "heading" fields (null = no heading).
 
 -for updating articles with python script:
 with word file open in completepdf folder:
