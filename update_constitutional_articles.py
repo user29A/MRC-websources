@@ -2,7 +2,7 @@
 """
 update_constitutional_articles.py
 
-Automates the extraction and formatting of Articles from the Meritocratic Republic of Canada
+Automates the extraction and formatting of Articles from the Meritocratic Dominion of Canada
 DOCX into properly indented JSON files for web display.
 
 Follows the exact indentation rules from indenting instructions.txt:
@@ -30,7 +30,7 @@ from typing import Optional, Tuple, List
 from docx import Document
 
 # Configuration
-DOCX_PATH = Path(r"C:\Users\Joseph E Postma\Documents\Illuminism\MRC\websources\completePDF\Meritocratic Republic of Canada.docx")
+DOCX_PATH = Path(r"C:\Users\Joseph E Postma\Documents\Illuminism\MRC\websources\completePDF\Meritocratic Dominion of Canada.docx")
 OUTPUT_DIR = Path(r"C:\Users\Joseph E Postma\Documents\Illuminism\MRC\websources\articles")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
